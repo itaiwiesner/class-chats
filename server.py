@@ -4,6 +4,7 @@ from diffie_hellman import *
 import socket
 import select
 import sqlite3
+import time
 
 # DATA CONTAINERS
 client_sockets = []  # list of all sockets connected to the server at the momment
@@ -78,9 +79,12 @@ def handle_key_exchange(client_socket):
     secret = gen_secret()
     public = get_public(secret)
     
+    start = time.time()
     client_socket.send(str(public).encode()) # send public
     client_public = int(client_socket.recv(BUFFER_SIZE).decode()) # recieve client public
-        
+    
+    end = time.time()
+    print(end - start)
     key = get_key(other_public=client_public, secret=secret)
     socket_to_key[client_socket] = key
     print(key)

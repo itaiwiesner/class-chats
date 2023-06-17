@@ -33,6 +33,10 @@ class NotProtocolException(Exception):
 
 def parse_data(encrypted_data, key):
     """ gets the data recieved and splits it to command and list of params. makes sure everything is according to the protocol """
+    if encrypted_data == ''.encode():
+        # means the client socket has crashed
+        raise IOError
+    
     # decrypt data
     data = decrypt(encrypted_data, key)
         

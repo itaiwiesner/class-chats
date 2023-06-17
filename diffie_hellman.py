@@ -20,4 +20,5 @@ def get_key(other_public, secret):
     
     # padds it so it has 16 digits and therefore be  128 byte big
     key = (str(key).ljust(16, '0')).encode()
+    return key
 
